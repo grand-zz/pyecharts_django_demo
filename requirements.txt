@@ -1,0 +1,16 @@
+asgiref==3.3.1
+Django==3.1.5
+djangorestframework==3.12.2
+Jinja2==2.11.2
+MarkupSafe==1.1.1
+mysqlclient==2.0.3
+prettytable==2.0.0
+pyecharts==1.9.0
+PyMySQL==1.0.2
+pytz==2020.5
+selenium==3.141.0
+simplejson==3.17.2
+snapshot-selenium==0.0.2
+sqlparse==0.4.1
+urllib3==1.26.2
+wcwidth==0.2.5
