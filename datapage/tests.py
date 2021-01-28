@@ -42,7 +42,7 @@ def page_simple_layout():
     page.add(
         table_base(),
     )
-    page.render("page_simple_layout.html")
+    page.render("datapage/page_simple_layout.html")
 
 if __name__ == "__main__":
     page_simple_layout()

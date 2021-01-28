@@ -27,7 +27,7 @@ def json_response(data, code=200):
     data = {
         "code": code,
         "msg": "success",
-        "data": data,
+        "datapage": data,
     }
     return response_as_json(data)
 
@@ -36,7 +36,7 @@ def json_error(error_string="error", code=500, **kwargs):
     data = {
         "code": code,
         "msg": error_string,
-        "data": {}
+        "datapage": {}
     }
     data.update(kwargs)
     return response_as_json(data)

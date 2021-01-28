@@ -6,16 +6,17 @@ from random import randrange
 
 from django.http import HttpResponse
 from pyecharts.commons.utils import JsCode
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from pyecharts.charts import Bar,Page
 from pyecharts import options as opts
 
 from pyecharts.components import Table
 
-def table_base() -> Table:
-    table = Table()
 
+def table_base(rq) -> Table:
+    table = Table()
+    print ('111111111',rq)
     headers = ["City name", "Area", "Population", "Annual Rainfall"]
     rows = [
         ["mc", 5905, 1857594, 1146.4],
@@ -31,18 +32,25 @@ def table_base() -> Table:
     )
     return table
 
-def page_default_layout():
+def page_default_layout(rq):
     page = Page(layout=Page.SimplePageLayout)
     print ('aa')
     page.add(
-        table_base(),
+        table_base(rq),
     )
-    page.render('data/page_simple_layout.html')
+    page.render('templates/datapage/page_simple_layout.html')
 
+
+def chart(request):
+    request.encoding = 'utf-8'
+    if 'rq1' in request.GET and request.GET['rq1']:
+        message = '你搜索的内容为: ' + request.GET['rq1']
+        rq1 = request.GET['rq1']
+    print ('bb',rq1)
+    page_default_layout(rq1)
+    print ('cc')
+    return render(request, 'datapage/page_simple_layout.html')
 
 def index(request):
-    print ('bb')
-    page_default_layout()
-    print ('cc')
-    return render(request, 'data/page_simple_layout.html')
+    return render(request, 'datapage/index.html')
 
