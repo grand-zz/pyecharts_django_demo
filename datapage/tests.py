@@ -1,48 +1,39 @@
+#
+# # Create your views here.
+# import json
+# import MySQLdb
+# from random import randrange
+#
+# from django.http import HttpResponse
+#
+# from django.shortcuts import render
+#
+#
+#
+# from pyecharts.charts import Bar,Page
+# from pyecharts import options as opts
+# from pyecharts.commons.utils import JsCode
+# from pyecharts.components import Table
+#
+#
+# if __name__ == "__main__":
+#     page_simple_layout()
+#
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+import pandas as pd
+from pyecharts.faker import Faker
+engine = create_engine("mysql+pymysql://root:root@10.101.192.43:3306/mysql", encoding="utf-8")
+session = sessionmaker(bind=engine)
+sql ='''select ms as 描述,count(1) as 数量 from b_epos where gzlx='软件' and rq BETWEEN '2021.01.18' and '2021.01.24' group by gzlx'''
+df=pd.read_sql(sql, engine )
+print (df.columns.tolist())
+a=df.values.tolist()
 
-# Create your views here.
-import json
-import MySQLdb
-from random import randrange
-
-from django.http import HttpResponse
-
-from django.shortcuts import render
+print (len(a))
+if len(a)==0:
+    a=[['无',0]]
+print (a)
 
 
 
-from pyecharts.charts import Bar,Page
-from pyecharts import options as opts
-from pyecharts.commons.utils import JsCode
-from pyecharts.components import Table
-
-
-
-
-
-def table_base() -> Table:
-    table = Table()
-
-    headers = ["City name", "Area", "Population", "Annual Rainfall"]
-    rows = [
-        ["Brisbane", 5905, 1857594, 1146.4],
-        ["Adelaide", 1295, 1158259, 600.5],
-        ["Darwin", 112, 120900, 1714.7],
-        ["Hobart", 1357, 205556, 619.5],
-        ["Sydney", 2058, 4336374, 1214.8],
-        ["Melbourne", 1566, 3806092, 646.9],
-        ["Perth", 5386, 1554769, 869.4],
-    ]
-    table.add(headers, rows).set_global_opts(
-        title_opts=opts.ComponentTitleOpts(title="Table")
-    )
-    return table
-
-def page_simple_layout():
-    page = Page(layout=Page.SimplePageLayout)
-    page.add(
-        table_base(),
-    )
-    page.render("datapage/page_simple_layout.html")
-
-if __name__ == "__main__":
-    page_simple_layout()
