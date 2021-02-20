@@ -3,7 +3,7 @@
 import json
 import MySQLdb
 from random import randrange
-
+from django.conf.urls import url
 from django.http import HttpResponse
 from pyecharts.commons.utils import JsCode
 from django.shortcuts import render, redirect
@@ -101,5 +101,15 @@ def chart(request):
     return render(request, 'datapage/page_simple_layout.html')
 
 def index(request):
-    return render(request, 'datapage/index.html')
+    return render(request, 'datapage/index111.html')
+
+
+
+def test(request):
+    engine = create_engine("mysql+pymysql://root:root@10.101.192.34:3306/mysql", encoding="utf-8")
+    # session = sessionmaker(bind=engine)
+    sql = "Select count(*) from testdata"
+    df = pd.read_sql_query(sql, engine)
+    context = {'data': df }
+    return render(request, 'datapage/index.html', context)
 

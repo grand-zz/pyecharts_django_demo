@@ -131,4 +131,4 @@ class ChartView(APIView):
 
 class IndexView(APIView):
     def get(self, request, *args, **kwargs):
-        return HttpResponse(content=open("./templates/index.html").read())
+        return HttpResponse(content=open("./templates/index111.html").read())
